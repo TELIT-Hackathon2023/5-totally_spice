@@ -1,5 +1,6 @@
 import express from 'express';
 import { getUserById, getUserByEmail, checkUserExist } from '../modules/userModule.js';
+import {ObjectId} from "mongodb";
 
 const router = express.Router();
 
@@ -8,13 +9,16 @@ const getUserByIdHandler = async (req, res) => {
     try {
         const userId = req.params.id;
         const user = await getUserById(userId);
+        // If a user is found, return it in the response
         if (user) {
             res.json(user);
         } else {
+            // If no user is found, return a 404 (Not Found) status code
             res.status(404).send('User not found');
         }
     } catch (error) {
-        res.status(500).send(error.message);
+        // If there's an error (e.g., invalid ObjectId format), return a 500 (Internal Server Error) status code
+        res.status(500).send('Error retrieving user: ' + error.message);
     }
 };
 
