@@ -1,6 +1,5 @@
 import express from 'express';
-import { getUserById, getUserByEmail, checkUserExist } from '../modules/userModule.js';
-import {ObjectId} from "mongodb";
+import {getUserById, getUserByEmail, checkUserExist, createUser, deleteUserById} from '../modules/userModule.js';
 
 const router = express.Router();
 
@@ -52,10 +51,33 @@ const checkUserExistHandler = async (req, res) => {
     }
 };
 
+const createUserHandler = async (req, res) => {
+    try {
+        const userData = req.body;
+        const userId = await createUser(userData);
+        res.status(201).json({ _id: userId, ...userData });
+    } catch (error) {
+        res.status(500).send('Error creating user: ' + error.message);
+    }
+};
+
+const deleteUserHandler = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const result = await deleteUserById(userId);
+        res.send(result);
+    } catch (error) {
+        res.status(500).send('Error deleting user: ' + error.message);
+    }
+};
+
 // Define routes
 router.get('/:id', getUserByIdHandler);
 router.get('/email/:email', getUserByEmailHandler);
 router.post('/check-existence', checkUserExistHandler);
+router.post('/create', createUserHandler);
+router.delete('delete/:id', deleteUserHandler);
+
 
 // Export the router
 export default router;
