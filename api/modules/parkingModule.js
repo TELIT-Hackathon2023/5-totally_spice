@@ -10,8 +10,8 @@ export const getParkingById = async (parkingId) => {
 export const getParkingByCarId = async (parkingId) => {
     const db = await connectToDatabase();
     const cars = db.collection('parking');
-    const id = ObjectId.isValid(parkingId) ? new ObjectId(parkingId) : null;
-    return cars.findOne({ car_id: id });
+    
+    return cars.findOne({ car_id: new ObjectId(parkingId) });
 };
 
 export const getReservationsByPlace = async (place) => {

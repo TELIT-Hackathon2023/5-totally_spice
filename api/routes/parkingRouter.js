@@ -129,12 +129,12 @@ const CarArrivedHandler = async (req, res) => {
         res.status(400).json({ status: 'error' , message: 'no car found' });
         return
     }
-    var reservation = await getParkingByCarId(car.id);
+    var reservation = await getParkingByCarId(car._id);
     if(reservation == null){
         res.status(400).json({ status: 'error' , message: 'no reservation found' });
         return
     }
-    var result = await carArrived(reservation.id);
+    var result = await carArrived(reservation._id);
     if (result != null) {
         res.status(200).json({ status: 'success' });
     } else {
