@@ -93,7 +93,9 @@ const createReservation = async (req, res) => {
                 to_time: to_time,
                 car_on_place: car_on_place,
                 zone_id: zone_id,
-                created_at: created_at
+                created_at: created_at,
+                notified: false,
+                expired :false
             }
             var reservationId = await createParking(data);
     

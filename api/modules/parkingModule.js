@@ -72,6 +72,31 @@ export const carArrived = async (id) => {
         throw new Error('Car not found');
     }
 };
+export const notificationArrived = async (id) => {
+    const db = await connectToDatabase();
+    const cars = db.collection('parking');
+    
+    const result = await cars.updateOne({ _id: new ObjectId(id) }, { $set: { notified: true } });
+    
+    if (result.modifiedCount === 1) {
+        return { message: 'Car arrived successfully' };
+    } else {
+        throw new Error('Car not found');
+    }
+};
+
+export const expiredArrived = async (id) => {
+    const db = await connectToDatabase();
+    const cars = db.collection('parking');
+    
+    const result = await cars.updateOne({ _id: new ObjectId(id) }, { $set: { expired: true } });
+    
+    if (result.modifiedCount === 1) {
+        return { message: 'Car arrived successfully' };
+    } else {
+        throw new Error('Car not found');
+    }
+};
 
 
 export const deleteParkingById = async (parkingID) => {

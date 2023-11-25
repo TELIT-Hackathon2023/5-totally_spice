@@ -1,6 +1,6 @@
 import cron from "node-cron" ;
 import express from 'express';
-import {getAllparking} from './parkingModule.js';
+import {getAllparking,expiredArrived,notificationArrived} from './parkingModule.js';
 import {getUserById} from './userModule.js';
 import {ExpiresSoonNotification} from './emailer.js';
 const app = express();
@@ -18,20 +18,22 @@ const check = async () => {
             }
             continue;
         }
-        if(reservation.to_time - Date.now() < 0){
+        if(reservation.to_time - Date.now() < 0 && reservation.expired == false){
             var user = await getUserById(reservation.user_id);
             if(user!= null){
               var email = user.email;
               await ExpiresSoonNotification(email);
+              await expiredArrived(reservation._id);
             }
             continue;
         }
 
-        if(reservation.to_time - Date.now() < 900000){
+        if(reservation.to_time - Date.now() < 900000 && reservation.notified == false){
            var user = await getUserById(reservation.user_id);
               if(user!= null){
                 var email = user.email;
                 await ExpiresSoonNotification(email);
+                await notificationArrived(reservation._id);
               }
         }
         
