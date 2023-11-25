@@ -31,7 +31,7 @@ export const createCar = async (carData) => {
     if (result.acknowledged) {
         return result.insertedId;
     } else {
-        throw new Error('User creation failed');
+        return false;
     }
 };
 
