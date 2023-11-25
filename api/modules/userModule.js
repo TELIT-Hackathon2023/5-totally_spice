@@ -4,7 +4,8 @@ import {connectToDatabase} from './db.js';
 export const getUserById = async (userId) => {
     const db = await connectToDatabase();
     const users = db.collection('users');
-    return users.findOne({ id: userId });
+    const id = ObjectId.isValid(userId) ? new ObjectId(userId) : null;
+    return users.findOne({ _id: id });
 };
 
 export const getUserByEmail = async (email) => {
