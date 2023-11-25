@@ -3,14 +3,12 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import '../styles/App.css';
 import Registration from './SignUp';
 import SignInForm from "./SignIn";
+import NavBar from "./NavBar";
 function App() {
   return (
     <BrowserRouter>
       <div className="app">
-        <nav>
-          <Link to="/">Home</Link>
-
-        </nav>
+        <NavBar/>
         <Routes>
           
 

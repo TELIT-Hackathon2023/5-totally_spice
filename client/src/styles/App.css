@@ -1,34 +1,10 @@
 /* App.css - Global styles */
-:root {
-    --primary-color: #ffffff;
-    --secondary-color: #333;
-    --button-bg-color: #ffffff;
-    --button-text-color: #333;
-    --button-border-color: #ddd;
-    --spinner-color: #007bff;
-}
 
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-}
-
-.app {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: #fff; /* Clean white background */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Softer shadow for a lighter effect */
-    margin-bottom: 1rem
 }
 
 .logo {

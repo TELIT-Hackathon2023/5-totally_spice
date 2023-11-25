@@ -1,0 +1,138 @@
+
+.app__navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* align vertical */
+    background: var(--color-black); /* color from index.css */
+
+    padding: 1rem 2rem; /* padi */
+}
+
+.app__navbar-logo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; /* align vertical */
+}
+
+.app__navbar-logo img {
+    width: 150px;
+}
+
+.app__navbar-links {
+    flex: 1; /* take all space */
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+
+    list-style: none; /* remove bullets */
+}
+
+.app__navbar-links li {
+    margin: 0 1rem; /* margin */
+    cursor: pointer; /* cursor */
+}
+
+.app__navbar-links li:hover {
+    color: var(--color-grey);
+}
+
+.app__navbar-login {
+    display: flex;
+    justify-content: flex-end; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+
+.app__navbar-login a {
+    margin: 0 1rem; /* margin */
+    text-decoration: none; /* remove underline */
+    transition: 0.5s ease; /* transition */
+}
+
+.app__navbar-login a:hover {
+    border-bottom: 1px solid var(--color-golden); /* border bottom */
+}
+
+.app__navbar-login div {
+    width: 1px;
+    height: 30px;
+    background-color: var(--color-grey);
+}
+
+.app__navbar-smallscreen {
+    display: none; /* hide */
+}
+
+.app__navbar-smallscreen_overlay {
+    position: fixed; /* position: Fixed to the top-left corner of the viewport. */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--color-black);
+    transition: 0.5s ease; /* transition */
+
+    flex-direction: column; /* column */
+    z-index: 5; /* z-index */
+}
+
+.app__navbar-smallscreen_overlay .overlay__close {
+    font-size: 27px;
+    color: var(--color-golden);
+    cursor: pointer; /* cursor */
+
+    position: absolute; /* position: Absolute to the top-right corner of the viewport. */
+    top: 20px;
+    right: 20px;
+}
+
+.app__navbar-smallscreen_links {
+    list-style: none; /* remove bullets */
+}
+
+.app__navbar-smallscreen_links li {
+    margin: 2rem; /* margin */
+    cursor: pointer; /* cursor */
+    color: var(--color-golden);
+    font-size: 2rem;
+    text-align: center; /* align horizontal */
+    font-family: var(--font-base); /* font family */
+}
+
+.app__navbar-smallscreen_links li:hover {
+    color: var(--color-white);
+}
+
+/* Applies styles only when the screen width is 2000 pixels or less. */
+@media screen and (max-width: 2000px) {
+    .app__navbar-logo img {
+        width: 210px;
+    }
+}
+
+/* Applies styles only when the screen width is 1150 pixels or less. */
+@media screen and (max-width: 1150px) {
+    .app__navbar-links {
+        display: none; /* hide nav links */
+    }
+
+    .app__navbar-smallscreen {
+        display: flex;
+    }
+}
+
+/* Applies styles only when the screen width is 650 pixels or less. */
+/* To delete horizontal scroll */
+@media screen and (max-width: 650px) {
+    .app__navbar {
+        padding: 1rem;
+    }
+
+    .app__navbar-login {
+        display: none; /* hide */
+    }
+
+    .app__navbar-logo img {
+        width: 110px;
+    }
+}
