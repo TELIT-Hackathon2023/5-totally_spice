@@ -1,10 +1,60 @@
-body {
-  /* fallback for old browsers */
-  background: #f093fb;
+.registration-form-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
 
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
+.registration-form-container h2 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1))
+.registration-form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.registration-form-container input[type="text"],
+.registration-form-container input[type="email"],
+.registration-form-container input[type="tel"],
+.registration-form-container input[type="date"],
+.registration-form-container select {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.registration-form-container input[type="radio"] {
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.registration-form-container label {
+  margin-right: 10px;
+  color: #333;
+}
+
+.registration-form-container button {
+  padding: 10px 20px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.registration-form-container button:hover {
+  background-color: #1565c0;
+}
+
+/* This is for the gender label alignment */
+.registration-form-container div {
+  margin-bottom: 15px;
 }

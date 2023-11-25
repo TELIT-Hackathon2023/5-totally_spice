@@ -1,76 +1,105 @@
-import React from 'react';
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBInput,
-  MDBRadio
-} from 'mdb-react-ui-kit';
-
+import React, { useState } from 'react';
 import '../styles/Registration.css';
 
-function Registration() {
+const RegistrationForm = () => {
+  // State for each input field
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [gender, setGender] = useState('Female');
+  const [subject, setSubject] = useState('');
+
+  // Handler for the form submission
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = {
+      firstName,
+      lastName,
+      birthday,
+      email,
+      phoneNumber,
+      gender,
+      subject,
+    };
+    // Here you would typically send the formData to a server
+    console.log(formData);
+  };
+
   return (
-      <MDBContainer fluid>
-        <MDBRow className='justify-content-center align-items-center m-5'>
-          <MDBCard>
-            <MDBCardBody className='px-4'>
-              <h3 className="fw-bold mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-
-              <MDBRow>
-                <MDBCol md='6'>
-                  <MDBInput wrapperClass='mb-4' label='First Name' size='lg' id='form1' type='text'/>
-                </MDBCol>
-                <MDBCol md='6'>
-                  <MDBInput wrapperClass='mb-4' label='Last Name' size='lg' id='form2' type='text'/>
-                </MDBCol>
-              </MDBRow>
-
-              <MDBRow>
-                <MDBCol md='6'>
-                  <MDBInput wrapperClass='mb-4' label='Birthday' size='lg' id='form3' type='text'/>
-                </MDBCol>
-                <MDBCol md='6' className='mb-4'>
-                  <h6 className="fw-bold">Gender: </h6>
-                  <MDBRadio name='inlineRadio' id='inlineRadio1' value='option1' label='Female' inline />
-                  <MDBRadio name='inlineRadio' id='inlineRadio2' value='option2' label='Male' inline />
-                  <MDBRadio name='inlineRadio' id='inlineRadio3' value='option3' label='Other' inline />
-                </MDBCol>
-              </MDBRow>
-
-              <MDBRow>
-                <MDBCol md='6'>
-                  <MDBInput wrapperClass='mb-4' label='Email' size='lg' id='form4' type='email'/>
-                </MDBCol>
-                <MDBCol md='6'>
-                  <MDBInput wrapperClass='mb-4' label='Phone Number' size='lg' id='form5' type='text'/>
-                </MDBCol>
-              </MDBRow>
-
-              {/* Custom Select Dropdown */}
-              <MDBRow>
-                <MDBCol md='6'>
-                  <div className="mb-4">
-                    <label htmlFor="customSelect" className="form-label">Choose Option</label>
-                    <select className="form-select" id="customSelect">
-                      <option disabled selected>Choose option</option>
-                      <option value="1">Subject 1</option>
-                      <option value="2">Subject 2</option>
-                      <option value="3">Subject 3</option>
-                    </select>
-                  </div>
-                </MDBCol>
-              </MDBRow>
-
-              <MDBBtn className='mb-4' size='lg'>Submit</MDBBtn>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBRow>
-      </MDBContainer>
+      <div className="registration-form-container" style={{ backgroundColor: '#f8bbd0' }}>
+        <form onSubmit={handleSubmit} style={{ padding: '20px', backgroundColor: 'white' }}>
+          <h2>Registration Form</h2>
+          <input
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+          />
+          <input
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+          />
+          <input
+              type="date"
+              value={birthday}
+              onChange={(e) => setBirthday(e.target.value)}
+          />
+          <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+              type="tel"
+              placeholder="Phone Number"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+          />
+          <div>
+            Gender:
+            <label>
+              <input
+                  type="radio"
+                  value="Female"
+                  checked={gender === 'Female'}
+                  onChange={(e) => setGender(e.target.value)}
+              />
+              Female
+            </label>
+            <label>
+              <input
+                  type="radio"
+                  value="Male"
+                  checked={gender === 'Male'}
+                  onChange={(e) => setGender(e.target.value)}
+              />
+              Male
+            </label>
+            <label>
+              <input
+                  type="radio"
+                  value="Other"
+                  checked={gender === 'Other'}
+                  onChange={(e) => setGender(e.target.value)}
+              />
+              Other
+            </label>
+          </div>
+          <select value={subject} onChange={(e) => setSubject(e.target.value)}>
+            <option value="">Choose option</option>
+            <option value="Subject 1">Subject 1</option>
+            <option value="Subject 2">Subject 2</option>
+            <option value="Subject 3">Subject 3</option>
+          </select>
+          <button type="submit">SUBMIT</button>
+        </form>
+      </div>
   );
-}
+};
 
-export default Registration;
+export default RegistrationForm;
