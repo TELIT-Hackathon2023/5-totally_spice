@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import userRouter from './routes/userRoutes.js'; // Adjust the path according to your project structure
-import authRouter from './routes/auth.js'
+import authRouter from './routes/authRouter.js'
 
 
 dotenv.config();

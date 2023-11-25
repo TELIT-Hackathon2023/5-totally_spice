@@ -19,6 +19,7 @@ const RegistrationHandler = async (req, res) => {
         password: password,
     };
     
+    
 
     if (name && surname && email && car_number && car_name) {
         // All variables exist and are not null
