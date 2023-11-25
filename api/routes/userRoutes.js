@@ -49,9 +49,9 @@ const checkUserExistHandler = async (req, res) => {
 };
 
 // Define routes
-router.get('/user/:id', getUserByIdHandler);
-router.get('/user/email/:email', getUserByEmailHandler);
-router.post('/user/check-existence', checkUserExistHandler);
+router.get('/:id', getUserByIdHandler);
+router.get('/email/:email', getUserByEmailHandler);
+router.post('/check-existence', checkUserExistHandler);
 
 // Export the router
 export default router;
