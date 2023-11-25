@@ -23,6 +23,7 @@
 .registration-form-container input[type="email"],
 .registration-form-container input[type="tel"],
 .registration-form-container input[type="date"],
+.registration-form-container input[type="password"],
 .registration-form-container select {
   padding: 10px;
   margin-bottom: 15px;
