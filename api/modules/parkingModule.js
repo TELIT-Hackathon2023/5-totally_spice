@@ -7,19 +7,31 @@ export const getParkingById = async (parkingId) => {
     const id = ObjectId.isValid(parkingId) ? new ObjectId(parkingId) : null;
     return cars.findOne({ _id: id });
 };
-
+export const getParkingByCarId = async (parkingId) => {
+    const db = await connectToDatabase();
+    const cars = db.collection('parking');
+    const id = ObjectId.isValid(parkingId) ? new ObjectId(parkingId) : null;
+    return cars.findOne({ car_id: id });
+};
 
 export const getReservationsByPlace = async (place) => {
     const db = await connectToDatabase();
-    const reservations = db.collection('reservations');
-    return await reservations.find({ place }).toArray();
+    const reservations = db.collection('parking');
+    return await reservations.find({ place:place }).toArray();
+};
+
+
+export const getAllparking = async (place) => {
+    const db = await connectToDatabase();
+    const reservations = db.collection('parking');
+    return await reservations.find().toArray();
 };
 
 export const getReservationStatus = async (place, currentTime) => {
     const db = await connectToDatabase();
-    const reservations = db.collection('reservations');
+    const reservations = db.collection('parking');
     
-    const currentReservations = await reservations.find({ place, startTime: { $lte: currentTime }, endTime: { $gte: currentTime } }).toArray();
+    const currentReservations = await reservations.find({ place, from_time: { $lte: currentTime }, to_time: { $gte: currentTime } }).toArray();
     
     if (currentReservations.length === 0) {
         return 1; // No reservations for this time
@@ -33,14 +45,8 @@ export const getReservationStatus = async (place, currentTime) => {
     }
 };
 
-export const checkParkingByTime = async (timestamp) => {
-    const db = await connectToDatabase();
-    const cars = db.collection('parking');
-    const query = {};
-    if (userID.id) query.id = userID.id;
 
-    return await cars.findOne(query);
-};
+
 
 export const createParking = async (parkingData) => {
     const db = await connectToDatabase();
@@ -52,6 +58,21 @@ export const createParking = async (parkingData) => {
         return false;
     }
 };
+
+
+export const carArrived = async (id) => {
+    const db = await connectToDatabase();
+    const cars = db.collection('parking');
+    
+    const result = await cars.updateOne({ _id: new ObjectId(id) }, { $set: { car_on_place: true } });
+    
+    if (result.modifiedCount === 1) {
+        return { message: 'Car arrived successfully' };
+    } else {
+        throw new Error('Car not found');
+    }
+};
+
 
 export const deleteParkingById = async (parkingID) => {
     const db = await connectToDatabase();
