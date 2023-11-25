@@ -15,11 +15,11 @@ export const getCarByNumber = async (number) => {
 };
 
 
-export const checkCarByCarID = async (userID) => {
+export const checkCarByCarID = async (CarID) => {
     const db = await connectToDatabase();
     const cars = db.collection('cars');
     const query = {};
-    if (userID.id) query.id = userID.id;
+    if (CarID.id) query.id = CarID.id;
 
     return await cars.findOne(query);
 };
@@ -31,25 +31,25 @@ export const createCar = async (carData) => {
     if (result.acknowledged) {
         return result.insertedId;
     } else {
-        throw new Error('User creation failed');
+        return false;
     }
 };
 
 export const deleteCarById = async (carID) => {
     const db = await connectToDatabase();
-    const users = db.collection('cars');
+    const Cars = db.collection('cars');
 
-    // Ensure the userId is valid, if not, return a message or null
+    // Ensure the CarId is valid, if not, return a message or null
     if (!ObjectId.isValid(carID)) {
-        throw new Error('Invalid user ID format');
+        throw new Error('Invalid Car ID format');
     }
 
-    const result = await users.deleteOne({ _id: new ObjectId(carID) });
+    const result = await Cars.deleteOne({ _id: new ObjectId(carID) });
 
     // The result object contains a property 'deletedCount' which is 1 if a document was deleted
     if (result.deletedCount === 1) {
-        return { message: 'User successfully deleted' };
+        return { message: 'Car successfully deleted' };
     } else {
-        throw new Error('User not found');
+        throw new Error('Car not found');
     }
 };

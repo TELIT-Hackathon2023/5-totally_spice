@@ -32,7 +32,7 @@ export const createUser = async (userData) => {
     if (result.acknowledged) {
         return result.insertedId;
     } else {
-        throw new Error('User creation failed');
+        return false;
     }
 };
 

@@ -1,6 +1,8 @@
 import express from 'express';
-import { getUserById, getUserByEmail, checkUserExist } from '../modules/userModule.js';
-
+import { getUserById, getUserByEmail, checkUserExist,createUser, deleteUserById } from '../modules/userModule.js';
+import { createCar ,getCarByNumber } from '../modules/carsModule.js';
+import {registrationConfirm} from '../modules/emailer.js';
+const ending = 'tsystems.sk';
 const router = express.Router();
 
 const RegistrationHandler = async (req, res) => {
@@ -9,23 +11,59 @@ const RegistrationHandler = async (req, res) => {
     var email = req.query.email;
     var car_number = req.query.car_number;
     var car_name = req.query.car_name;
-    var password = generateRandomPassword();
-    var data = {
-        name: name,
-        surname: surname,
-        is_admin: false,
-        social_score: 100,
-        email: email,
-        password: password,
-    };
+    
     
     
 
     if (name && surname && email && car_number && car_name) {
         // All variables exist and are not null
-        const emailValid = endsWith(email, 'tsystems.sk');
+        const emailValid = endsWith(email, ending);
+        if(await getUserByEmail(email)){
+            res.status(400).json({ status: 'error' , message : 'Email already exists' });
+            return;
+        }
         if (emailValid) {
-            res.status(200).json({ data: req.query, status: 'success' });
+            var password = generateRandomPassword();
+            const currentTimestamp = Date.now();
+            var data = {
+                name: name,
+                surname: surname,
+                is_admin: false,
+                social_score: 100,
+                email: email,
+                password: password,
+                created_at: currentTimestamp,
+                ban_end_time: currentTimestamp
+
+            };
+
+            var userId = await createUser(data);
+            if(userId){
+                var carData = {
+                    user_id: userId,
+                    number: car_number,
+                    name: car_name,
+                    created_at: currentTimestamp
+                }
+                if(await getCarByNumber(car_number)){
+                    res.status(400).json({ status: 'error' , message : 'Car with this number already in database , user was not created' });
+                    await deleteUserById(userId);
+                    return;
+                }
+
+                var carId = await createCar(carData);
+                if(carId){
+                    await registrationConfirm(email,password);
+                    res.status(200).json({ data: req.query, status: 'success' });
+                }else{
+                    res.status(400).json({ status: 'error' , message : 'Dataabse error' });
+                    await deleteUserById(userId);
+                }
+               
+            }else{
+                res.status(400).json({ status: 'error' , message : 'Dataabse error' });
+            }
+            
         } else {
             res.status(400).json({ status: 'error' , message : 'Invalid email host must be tsystems.sk' });
         }
@@ -51,7 +89,7 @@ const LoginHandler = async (req, res) => {
     var password = req.query.password;
     if (email && password) {
         // All variables exist and are not null
-        const emailValid = endsWith(email, 'tsystems.sk');
+        const emailValid = endsWith(email, ending);
         if (emailValid) {
 
             var user = await getUserByEmail(email);
@@ -79,7 +117,7 @@ const LoginHandler = async (req, res) => {
 const RegistrationEmailCheckHandler = async (req, res) => {
     const email = req.query.email;
     if(email != null){
-        if (endsWith(email,'tsystems.sk')) {
+        if (endsWith(email, ending)) {
             res.status(200).json({ valid: 1 });
         } else {
             res.status(200).json({ valid: 0 });
@@ -102,9 +140,9 @@ function endsWith(email, host) {
     }
 }
 
-router.get('/login', LoginHandler);
+router.post('/login', LoginHandler);
 router.get('/registration/emailCheck', RegistrationEmailCheckHandler);
-router.get('/registration/add', RegistrationHandler);
+router.post('/registration/add', RegistrationHandler);
 
 // Export the router
 export default router;
