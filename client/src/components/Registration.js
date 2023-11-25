@@ -10,6 +10,8 @@ import {
   MDBRadio
 } from 'mdb-react-ui-kit';
 
+import '../styles/Registration.css';
+
 function Registration() {
   return (
       <MDBContainer fluid>
