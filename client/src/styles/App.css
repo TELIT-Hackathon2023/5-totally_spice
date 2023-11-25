@@ -11,6 +11,20 @@ body {
     height: auto;
     width: 120px;
 }
+/* App.css */
+.app {
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh; /* Full viewport height */
+    color: #333; /* This is for text, adjust as needed */
+}
+
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
 
 .cart-link {
     background-color: #007bff;

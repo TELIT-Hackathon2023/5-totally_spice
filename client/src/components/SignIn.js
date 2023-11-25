@@ -13,8 +13,27 @@ const SignInForm = () => {
             email,
             password,
         };
-        // Here you would typically send the formData to a server
-        console.log(formData);
+        signIn(formData);
+    };
+
+    const signIn = async (credentials) => {
+        try {
+            const response = await fetch('/api/auth/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentials)
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log('Signed in:', data);
+            // Handle further actions like redirecting the user or storing the session
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
     };
 
     return (

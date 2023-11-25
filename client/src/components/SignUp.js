@@ -23,8 +23,27 @@ const RegistrationForm = () => {
       gender,
       subject,
     };
-    // Here you would typically send the formData to a server
-    console.log(formData);
+    register(formData);
+  };
+
+  const register = async (userData) => {
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('Registered:', data);
+      // Handle further actions like showing a success message or clearing the form
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
   };
 
   return (
