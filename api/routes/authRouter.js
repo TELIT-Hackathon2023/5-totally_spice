@@ -1,6 +1,6 @@
 import express from 'express';
 import { getUserById, getUserByEmail, checkUserExist,createUser, deleteUserById } from '../modules/userModule.js';
-import { createCar } from '../modules/carsModule.js';
+import { createCar ,getCarByNumber } from '../modules/carsModule.js';
 import {registrationConfirm} from '../modules/emailer.js';
 const ending = 'tsystems.sk';
 const router = express.Router();
@@ -45,6 +45,12 @@ const RegistrationHandler = async (req, res) => {
                     name: car_name,
                     created_at: currentTimestamp
                 }
+                if(await getCarByNumber(car_number)){
+                    res.status(400).json({ status: 'error' , message : 'Car with this number already in database , user was not created' });
+                    await deleteUserById(userId);
+                    return;
+                }
+
                 var carId = await createCar(carData);
                 if(carId){
                     await registrationConfirm(email,password);
@@ -134,9 +140,9 @@ function endsWith(email, host) {
     }
 }
 
-router.get('/login', LoginHandler);
+router.post('/login', LoginHandler);
 router.get('/registration/emailCheck', RegistrationEmailCheckHandler);
-router.get('/registration/add', RegistrationHandler);
+router.post('/registration/add', RegistrationHandler);
 
 // Export the router
 export default router;
