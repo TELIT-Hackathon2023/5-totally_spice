@@ -4,7 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import userRouter from './routes/userRoutes.js';
 import authRouter from './routes/authRouter.js'
-import carRouter from "./routes/carRouter.js";
+import carRouter from "./routes/carRoutes.js";
 
 
 dotenv.config();
