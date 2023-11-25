@@ -18,6 +18,10 @@ const RegistrationHandler = async (req, res) => {
     if (name && surname && email && car_number && car_name) {
         // All variables exist and are not null
         const emailValid = endsWith(email, ending);
+        if(await getUserByEmail(email)){
+            res.status(400).json({ status: 'error' , message : 'Email already exists' });
+            return;
+        }
         if (emailValid) {
             var password = generateRandomPassword();
             const currentTimestamp = Date.now();
