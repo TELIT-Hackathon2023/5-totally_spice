@@ -18,7 +18,7 @@ const SignInForm = () => {
 
     const signIn = async (credentials) => {
         try {
-            const response = await fetch('/api/auth/', {
+            const response = await fetch('http://localhost:8000/api/user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
