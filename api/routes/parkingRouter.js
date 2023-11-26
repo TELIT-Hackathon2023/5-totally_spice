@@ -111,6 +111,50 @@ const createReservation = async (req, res) => {
     
 }
 
+const createAdminReservation = async (req, res) => {
+    var place = req.query.place;
+    var car_id = new ObjectId(req.query.car_id);
+    var user_id = new ObjectId(req.query.user_id);
+    var from_time = req.query.from_time;
+    var to_time = req.query.to_time;
+    var car_on_place = false;
+    var zone_id = new ObjectId(req.query.zone_id)
+    var created_at = Date.now();
+
+    
+    if(place && car_id && user_id && from_time && to_time && zone_id){
+        if(from_time > to_time){
+            res.status(400).json({ status: 'error' , message: 'starting time cant be higher than ending time' });
+            return;
+        }
+       
+        if(await checkifAvaliable(from_time,to_time,place,car_id)){
+            var data = {
+                place: place,
+                car_id: car_id,
+                user_id: user_id,
+                from_time: from_time,
+                to_time: to_time,
+                car_on_place: car_on_place,
+                zone_id: zone_id,
+                created_at: created_at,
+                notified: false,
+                expired :false
+            }
+            var reservationId = await createParking(data);
+    
+            if (reservationId) {
+                res.status(200).json({ status: 'success' });
+            } else {
+                res.status(400).json({ status: 'error' });
+            }
+        }else{
+            res.status(400).json({ status: 'error' , message: 'parking place is not avaliable' });
+        }
+    }
+    
+}
+
 const deleteReservation = async (req, res) => {
     
     var reservationId = req.params.id;
@@ -149,6 +193,7 @@ router.get('/all', getAllCurrentparkingReservations);
 router.get('/arrived/:number', CarArrivedHandler);
 router.get('/status', getAllCurrentparkingReservationStatus);
 router.post('/create',createReservation );
+router.post('/admin/create',createAdminReservation );
 router.delete('/delete/:id',deleteReservation);
 
 
