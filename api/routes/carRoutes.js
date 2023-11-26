@@ -1,6 +1,6 @@
 import express from 'express';
 import {ObjectId} from 'mongodb';
-import {getCarById, getCarByNumber, checkCarByCarID, createCar, deleteCarById} from '../modules/carsModule.js';
+import {getCarById, getCarByUserId,getCarByNumber, checkCarByCarID, createCar, deleteCarById} from '../modules/carsModule.js';
 
 const router = express.Router();
 
@@ -9,6 +9,23 @@ const getCarByIdHandler = async (req, res) => {
     try {
         const carId = new ObjectId(req.params.id);
         const car = await getCarById(carId);
+        // If a user is found, return it in the response
+        if (car) {
+            res.json(car);
+        } else {
+            // If no user is found, return a 404 (Not Found) status code
+            res.status(404).send('Car not found');
+        }
+    } catch (error) {
+        // If there's an error (e.g., invalid ObjectId format), return a 500 (Internal Server Error) status code
+        res.status(500).send('Error retrieving car: ' + error.message);
+    }
+};
+
+const getCarByUserIdHandler = async (req, res) => {
+    try {
+        const carId = new ObjectId(req.params.id);
+        const car = await getCarByUserId(carId);
         // If a user is found, return it in the response
         if (car) {
             res.json(car);
@@ -91,6 +108,7 @@ const deleteCarHandler = async (req, res) => {
 
 // Define routes
 router.get('/:id', getCarByIdHandler);
+router.get('/user/:id', getCarByUserIdHandler);
 router.get('/number/:numbe', getCarByNumberHandler);
 router.post('/check-existence', checkCarExistHandler);
 router.post('/create', createCarHandler);

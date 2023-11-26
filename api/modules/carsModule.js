@@ -7,6 +7,12 @@ export const getCarById = async (carId) => {
     const id = ObjectId.isValid(carId) ? new ObjectId(carId) : null;
     return cars.findOne({ _id: id });
 };
+export const getCarByUserId = async (carId) => {
+    const db = await connectToDatabase();
+    const cars = db.collection('cars');
+    const id = ObjectId.isValid(carId) ? new ObjectId(carId) : null;
+    return cars.findOne({ user_id: id });
+};
 
 export const getCarByNumber = async (number) => {
     const db = await connectToDatabase();
