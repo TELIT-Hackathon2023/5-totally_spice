@@ -9,7 +9,6 @@ import BodyPage from "./BodyPage";
 import RegistrationCard from './RegistrationCard';
 import {AuthProvider, useAuth} from './AuthContext';
 import UserCard from './User';
-import Table from './Table';
 import AdminPanel from './AdminPanel';
 
 function App() {

@@ -2,7 +2,7 @@
 import React from 'react';
 import '../styles/Table.css';
 
-const Table = ({ data }) => {
+const Table = ({ data, onDelete, onChangeTime }) => {
     return (
         <table className="table">
             <thead>
@@ -24,9 +24,18 @@ const Table = ({ data }) => {
                     <td>{item.time}</td>
                     <td>{item.status}</td>
                     <td>
-                        {/* Buttons for actions */}
-                        <button>Delete</button>
-                        <button>Change Time</button>
+                        <button
+                            className="table-button delete-button"
+                            onClick={() => onDelete(item.id)}
+                        >
+                            Delete
+                        </button>
+                        {/*<button*/}
+                        {/*    className="table-button change-time-button"*/}
+                        {/*    onClick={() => onChangeTime(item.id)}*/}
+                        {/*>*/}
+                        {/*    Change Time*/}
+                        {/*</button>*/}
                     </td>
                 </tr>
             ))}

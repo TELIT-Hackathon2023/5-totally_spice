@@ -11,4 +11,36 @@
     border-bottom: 1px solid #ddd;
 }
 
-/* Add more styles as needed */
+.table-button {
+    padding: 8px 15px; /* Adjusted padding for better visual balance */
+    margin: 0 5px; /* Space between buttons */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold; /* Optional: Makes the text within the button bolder */
+    text-transform: uppercase; /* Optional: Makes the button text uppercase */
+    min-width: 90px; /* Ensures buttons have a minimum width */
+    text-align: center;
+}
+
+.delete-button {
+    background-color: #ff4d4f;
+    color: white;
+}
+
+.change-time-button {
+    background-color: #1890ff;
+    color: white;
+}
+
+.table-button:hover {
+    opacity: 0.8; /* Adds a hover effect to buttons for better user interaction */
+}
+
+/* Add responsive design for smaller screens if necessary */
+@media (max-width: 600px) {
+    .table-button {
+        padding: 6px 10px; /* Smaller padding for small screens */
+        font-size: 0.8em; /* Smaller font size for readability */
+    }
+}
