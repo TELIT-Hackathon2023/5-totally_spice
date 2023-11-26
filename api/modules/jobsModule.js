@@ -18,6 +18,9 @@ const check = async () => {
 
               if(user.social_score  != 0){
                 await setSocialScore(user._id,user.social_score-1);
+              }else{
+                var time =  Date.now();
+                var set = await setBantime(user._id,time+1036800000);
               }
               await deleteParkingById(reservation._id);
             }  

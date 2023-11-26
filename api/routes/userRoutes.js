@@ -1,5 +1,5 @@
 import express from 'express';
-import {getUserById, getUserByEmail, checkUserExist, createUser, deleteUserById,setSocialScore} from '../modules/userModule.js';
+import {getUserById, getUserByEmail, checkUserExist, createUser,setBantime, deleteUserById,setSocialScore} from '../modules/userModule.js';
 
 const router = express.Router();
 
@@ -81,11 +81,43 @@ const deleteUserHandler = async (req, res) => {
     }
 };
 
+const AddBanTime = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        var time =  Date.now();
+        var set = await setBantime(userId,time+1036800000);
+       
+        res.status(200).json({ status: 'success' });
+       
+       
+    } catch (error) {
+        res.status(500).send('Error deleting user: ' + error.message);
+    }
+};
+
+const IsUserBanned = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const result = await getUserById(userId);
+        var time =  Date.now();
+        if(result.ban_end_time < time){
+            res.status(200).json({ status: 'success' ,isBanned: false });
+        }else{
+            res.status(200).json({ status: 'success' ,isBanned: true });
+        }
+       
+    } catch (error) {
+        res.status(500).send('Error deleting user: ' + error.message);
+    }
+};
+
 // Define routes
 router.get('/:id', getUserByIdHandler);
 router.get('/email/:email', getUserByEmailHandler);
 router.post('/check-existence', checkUserExistHandler);
+router.get('/check-ban/:id', IsUserBanned);
 router.post('/create', createUserHandler);
+router.post('/admin/ban/:id', AddBanTime);
 router.post('/score/:id', SetSocialScoreHandler);
 router.delete('delete/:id', deleteUserHandler);
 

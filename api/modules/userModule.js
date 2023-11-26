@@ -35,6 +35,18 @@ export const createUser = async (userData) => {
         return false;
     }
 };
+
+export const setBantime= async (id ,time) => {
+    const db = await connectToDatabase();
+    const users = db.collection('users');
+    const result = await users.updateOne({ _id: new ObjectId(id) }, { $set: { ban_end_time: time } });
+    if (result.acknowledged) {
+        return result.insertedId;
+    } else {
+        return false;
+    }
+}
+
 export const setSocialScore = async (id , score) => {
    
     const db = await connectToDatabase();
