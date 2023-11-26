@@ -1,34 +1,38 @@
 import React, { useState } from 'react';
 import '../styles/Registration.css';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
 const RegistrationForm = () => {
   // State for each input field
+  const { setIsLoggedIn } = useAuth();
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [birthday, setBirthday] = useState('');
+  const [car_number, setCarNumber] = useState('');
   const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [gender, setGender] = useState('Female');
+  const [password, setPassword] = useState('');
+  const [car_name, setCarName] = useState('');
   const [subject, setSubject] = useState('');
+  const { loginUser } = useAuth();
 
   // Handler for the form submission
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const formData = {
-      firstName,
-      lastName,
-      birthday,
+      name: firstName,
+      surname: lastName,
       email,
-      phoneNumber,
-      gender,
-      subject,
+      car_number,
+      car_name
     };
     register(formData);
   };
-
   const register = async (userData) => {
     try {
-      const response = await fetch('/api/auth/register', {
+      const query = new URLSearchParams(userData).toString();
+      const response = await fetch(`http://localhost:8000/api/auth/registration/add?${query}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -39,6 +43,20 @@ const RegistrationForm = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
+      if (data.status === 'success') {
+        // Make sure that `data.user` contains the user data you expect
+        console.log(data);
+        const user = {
+          email : data.data.email,
+          password : data.data.password,
+          name : data.data.name,
+          social_score: data.data.social_score,
+          surname : data.data.surname,
+          is_admin: data.data.is_admin,
+        };
+        loginUser(user);
+        navigate('/');
+      }
       console.log('Registered:', data);
       // Handle further actions like showing a success message or clearing the form
     } catch (error) {
@@ -63,58 +81,23 @@ const RegistrationForm = () => {
               onChange={(e) => setLastName(e.target.value)}
           />
           <input
-              type="date"
-              value={birthday}
-              onChange={(e) => setBirthday(e.target.value)}
-          />
-          <input
               type="email"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
           />
           <input
-              type="tel"
-              placeholder="Phone Number"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              type="text"
+              placeholder="Car Name"
+              value={car_name}
+              onChange={(e) => setCarName(e.target.value)}
           />
-          <div>
-            Gender:
-            <label>
-              <input
-                  type="radio"
-                  value="Female"
-                  checked={gender === 'Female'}
-                  onChange={(e) => setGender(e.target.value)}
-              />
-              Female
-            </label>
-            <label>
-              <input
-                  type="radio"
-                  value="Male"
-                  checked={gender === 'Male'}
-                  onChange={(e) => setGender(e.target.value)}
-              />
-              Male
-            </label>
-            <label>
-              <input
-                  type="radio"
-                  value="Other"
-                  checked={gender === 'Other'}
-                  onChange={(e) => setGender(e.target.value)}
-              />
-              Other
-            </label>
-          </div>
-          <select value={subject} onChange={(e) => setSubject(e.target.value)}>
-            <option value="">Choose option</option>
-            <option value="Subject 1">Subject 1</option>
-            <option value="Subject 2">Subject 2</option>
-            <option value="Subject 3">Subject 3</option>
-          </select>
+          <input
+              type="text"
+              placeholder="Car Number"
+              value={car_number}
+              onChange={(e) => setCarNumber(e.target.value)}
+          />
           <button type="submit">SUBMIT</button>
         </form>
       </div>

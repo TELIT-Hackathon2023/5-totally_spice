@@ -1,16 +1,33 @@
 /* RegistrationCard.css */
+/* Add to the parent container of registration-card, or adjust the .app container if that's the parent */
+
 .registration-card {
-    width: 300px; /* Adjust the width as needed */
-    height: 100px;
+    max-width: 300px;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
-    backdrop-filter: blur(10px); /* Frosted glass effect */
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
     border-radius: 8px;
-    position: absolute; /* Absolute position relative to its parent */
-    left: -10%; /* Move it further to the left */
-    top: 100px; /* More padding from the navigation bar */
-    z-index: 10; /* Sit above the background image */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    z-index: 10;
+    left: 20px;
+    top: 100px;
     text-align: center;
+}
+
+@media (max-width: 768px) {
+    .registration-card {
+        max-width: 80%;
+        position: static; /* Let the card flow within the document */
+        margin: 10px auto; /* Add some margin and center the card */
+    }
+}
+
+@media (max-width: 480px) {
+    .registration-card {
+        max-width: 95%;
+        margin: 10px auto;
+    }
 }
 
 .registration-card h3 {

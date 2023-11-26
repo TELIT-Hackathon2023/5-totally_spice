@@ -1,0 +1,42 @@
+.user-card {
+    max-width: 300px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    z-index: 10;
+    right: 20px;
+    top: 100px;
+    text-align: center;
+}
+
+.user-card h3 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Style for user details */
+.user-card p {
+    color: #333;
+    font-size: 1em; /* Adjust as needed */
+    margin-bottom: 10px; /* Space between details */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .user-card {
+        max-width: 80%;
+        position: static; /* Let the card flow within the document */
+        margin: 10px auto; /* Add some margin and center the card */
+    }
+}
+
+@media (max-width: 480px) {
+    .user-card {
+        max-width: 95%;
+        margin: 10px auto;
+    }
+}

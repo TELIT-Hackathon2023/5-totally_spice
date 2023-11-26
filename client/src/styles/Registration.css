@@ -1,6 +1,6 @@
 .registration-form-container {
-  max-width: 500px;
-  margin: 50px auto;
+  max-width: 500px; /* Maximum width of the form */
+  margin: 50px auto; /* Center the form on the page with margin */
   padding: 20px;
   background-color: #ffffff;
   border-radius: 8px;
@@ -19,6 +19,7 @@
   flex-direction: column;
 }
 
+/* Style the form inputs */
 .registration-form-container input[type="text"],
 .registration-form-container input[type="email"],
 .registration-form-container input[type="tel"],
@@ -29,8 +30,10 @@
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  width: calc(100% - 22px); /* Subtract padding and border */
 }
 
+/* Style the radio buttons and labels for gender selection */
 .registration-form-container input[type="radio"] {
   margin-left: 15px;
   margin-right: 5px;
@@ -41,6 +44,7 @@
   color: #333;
 }
 
+/* Style the submit button */
 .registration-form-container button {
   padding: 10px 20px;
   background-color: #1976d2;
@@ -51,11 +55,27 @@
   transition: background-color 0.3s ease;
 }
 
+/* Button hover effect */
 .registration-form-container button:hover {
   background-color: #1565c0;
 }
 
-/* This is for the gender label alignment */
+/* Align gender selection labels with the radio buttons */
 .registration-form-container div {
   margin-bottom: 15px;
+}
+
+/* Media query for smaller screens to adjust the form size */
+@media (max-width: 768px) {
+  .registration-form-container {
+    max-width: 80%; /* Form takes more width on smaller screens */
+    margin: 20px auto; /* Less margin on the top and bottom */
+    padding: 15px; /* Slightly less padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-form-container {
+    max-width: 95%; /* Form takes almost full width on very small screens */
+  }
 }
