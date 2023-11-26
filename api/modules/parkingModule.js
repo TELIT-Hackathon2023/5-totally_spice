@@ -36,7 +36,7 @@ export const getReservationStatus = async (place, currentTime) => {
         const reservation = currentReservations[i];
        
         if(reservation.from_time < currentTime && reservation.to_time > currentTime){
-            if (reservation.car_on_place) {
+            if (!reservation.car_on_place) {
                 return 2; // Occupied
             } else {
                 return 3; // Waiting
