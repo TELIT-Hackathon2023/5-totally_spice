@@ -1,0 +1,119 @@
+/* ReservationPage.css */
+
+
+
+.reservation-page {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    padding-top: 100px;
+    max-height: 80vh;
+  }
+  
+  .reservation-form {
+    flex: 1;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .reservation-form h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .reservation-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .reservation-form label {
+    margin-bottom: 10px;
+  }
+  
+  .reservation-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+  
+  .reservation-form input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+.reservation-form.active {
+  /* When a spot is selected, highlight the form */
+  border: 2px solid #007bff;
+}
+.spot-status {
+  font-weight: bold;
+}
+.spot-status.free {
+  color: #50c878;
+}
+.spot-status.reserved {
+  color: #ff9f1a;
+}
+
+.spot-status.occupied {
+  color: #e63946;
+}
+.reservation-times p {
+  background-color: #f0f0f0;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+
+  .selected-spot, .info-text {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+.selected-spot, .info-text {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .time-range label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .submit-button, .choose-spot-button {
+    background-color: #ff5f5f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+  
+  .submit-button:hover, .choose-spot-button:hover {
+    background-color: #e44e4e;
+  }

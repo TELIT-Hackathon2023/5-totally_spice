@@ -10,7 +10,8 @@ import RegistrationCard from './RegistrationCard';
 import {AuthProvider, useAuth} from './AuthContext';
 import UserCard from './User';
 import AdminPanel from './AdminPanel';
-
+import ReservationPage from './ReservationPage';
+import reservationPage from "./ReservationPage";
 function App() {
     return (
         <AuthProvider>
@@ -30,17 +31,21 @@ function Content() {
     const isSignInPage = location.pathname === '/signin';
     const isSignUpPage = location.pathname === '/registration';
     const isAdminPage = location.pathname === '/admin'; // Add this line
+    const isReservationPage = location.pathname === '/reservationPage'; // Add this line
 
     return (
         <div className="content">
-            {isLoggedIn && !isSignInPage && !isSignUpPage && !isAdminPage && <UserCard />}
-            {!isSignInPage && !isSignUpPage && !isAdminPage && <RegistrationCard />}
+            <div className="card-container">
+            {!isReservationPage && isLoggedIn && !isSignInPage && !isSignUpPage && !isAdminPage && <UserCard />}
+            {!isReservationPage && !isSignInPage && !isSignUpPage && !isAdminPage && <RegistrationCard />}
             <Routes>
                 <Route path="/" element={<BodyPage />} />
                 <Route path="/signin" element={<SignInForm />} />
                 <Route path="/registration" element={<Registration />} />
                 <Route path="/admin" element={<AdminPanel />} />
+                <Route path="/reservationPage" element={<ReservationPage />} />
             </Routes>
+            </div>
         </div>
     );
 }

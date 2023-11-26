@@ -1,6 +1,6 @@
 import express from 'express';
 import {ObjectId} from 'mongodb';
-import {getCarById, getCarByNumber, checkCarByCarID, createCar, deleteCarById} from '../modules/carsModule.js';
+import {getCarById, getCarByNumber, checkCarByCarID, createCar, deleteCarById, CarByUserId} from '../modules/carsModule.js';
 
 const router = express.Router();
 
@@ -89,13 +89,23 @@ const deleteCarHandler = async (req, res) => {
     }
 };
 
+const getCarByUserId = async (req, res) => {
+    try {
+        const userId = new ObjectId(req.params.id);
+        const result = await CarByUserId(userId);
+        res.send(result);
+    } catch (error) {
+        res.status(500).send('Error deleting car: ' + error.message);
+    }
+};
+
 // Define routes
 router.get('/:id', getCarByIdHandler);
 router.get('/number/:numbe', getCarByNumberHandler);
 router.post('/check-existence', checkCarExistHandler);
 router.post('/create', createCarHandler);
 router.delete('/delete/:id', deleteCarHandler);
-
+router.get('/get/user/:id', getCarByUserId);
 
 // Export the router
 export default router;

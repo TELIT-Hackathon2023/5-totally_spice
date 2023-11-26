@@ -10,7 +10,7 @@ export const getParkingById = async (parkingId) => {
 export const getParkingByCarId = async (parkingId) => {
     const db = await connectToDatabase();
     const cars = db.collection('parking');
-    
+
     return cars.findOne({ car_id: new ObjectId(parkingId) });
 };
 
@@ -34,16 +34,16 @@ export const getReservationStatus = async (place, currentTime) => {
     const currentReservations = await reservations.find({ place:place }).toArray();
     for (let i = 0; i < currentReservations.length; i++) {
         const reservation = currentReservations[i];
-       
+
         if(reservation.from_time < currentTime && reservation.to_time > currentTime){
-            if (reservation.car_on_place) {
+            if (!reservation.car_on_place) {
                 return 2; // Occupied
             } else {
                 return 3; // Waiting
             }
-        } 
-            
-        
+        }
+
+
     }
     return 1
 };
@@ -62,13 +62,25 @@ export const createParking = async (parkingData) => {
     }
 };
 
+export const editParking = async (id,parkingData) => {
+
+    const db = await connectToDatabase();
+    const cars = db.collection('parking');
+    const result = await cars.updateOne({ _id: new ObjectId(id) }, { $set: { from_time: parkingData.from_time, to_time: parkingData.to_time , car_id:parkingData.car_id } });
+    if (result.acknowledged) {
+        return result.insertedId;
+    } else {
+        return false;
+    }
+}
+
 
 export const carArrived = async (id) => {
     const db = await connectToDatabase();
     const cars = db.collection('parking');
-    
+
     const result = await cars.updateOne({ _id: new ObjectId(id) }, { $set: { car_on_place: true } });
-    
+
     if (result.modifiedCount === 1) {
         return { message: 'Car arrived successfully' };
     } else {
@@ -78,9 +90,9 @@ export const carArrived = async (id) => {
 export const notificationArrived = async (id) => {
     const db = await connectToDatabase();
     const cars = db.collection('parking');
-    
+
     const result = await cars.updateOne({ _id: new ObjectId(id) }, { $set: { notified: true } });
-    
+
     if (result.modifiedCount === 1) {
         return { message: 'Car arrived successfully' };
     } else {
@@ -91,9 +103,9 @@ export const notificationArrived = async (id) => {
 export const expiredArrived = async (id) => {
     const db = await connectToDatabase();
     const cars = db.collection('parking');
-    
+
     const result = await cars.updateOne({ _id: new ObjectId(id) }, { $set: { expired: true } });
-    
+
     if (result.modifiedCount === 1) {
         return { message: 'Car arrived successfully' };
     } else {

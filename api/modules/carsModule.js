@@ -14,6 +14,13 @@ export const getCarByNumber = async (number) => {
     return cars.findOne({ number: number }); // Directly use the email parameter in the query
 };
 
+export const CarByUserId = async (user_id) => {
+    const db = await connectToDatabase();
+    const cars = db.collection('cars');
+    return cars.findOne({ user_id: user_id }); // Directly use the email parameter in the query
+};
+
+
 
 export const checkCarByCarID = async (CarID) => {
     const db = await connectToDatabase();
