@@ -30,19 +30,22 @@ export const getAllparking = async (place) => {
 export const getReservationStatus = async (place, currentTime) => {
     const db = await connectToDatabase();
     const reservations = db.collection('parking');
-    
-    const currentReservations = await reservations.find({ place, from_time: { $lte: currentTime }, to_time: { $gte: currentTime } }).toArray();
-    
-    if (currentReservations.length === 0) {
-        return 1; // No reservations for this time
-    } else {
-        const occupiedReservations = currentReservations.filter(reservation => reservation.car_on_place);
-        if (occupiedReservations.length > 0) {
-            return 2; // Occupied
-        } else {
-            return 3; // Waiting
-        }
+    console.log(currentTime);
+    const currentReservations = await reservations.find({ place:place }).toArray();
+    for (let i = 0; i < currentReservations.length; i++) {
+        const reservation = currentReservations[i];
+       
+        if(reservation.from_time < currentTime && reservation.to_time > currentTime){
+            if (reservation.car_on_place) {
+                return 2; // Occupied
+            } else {
+                return 3; // Waiting
+            }
+        } 
+            
+        
     }
+    return 1
 };
 
 
