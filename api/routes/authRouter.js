@@ -29,7 +29,7 @@ const RegistrationHandler = async (req, res) => {
                 name: name,
                 surname: surname,
                 is_admin: false,
-                social_score: 100,
+                social_score: 3,
                 email: email,
                 password: password,
                 created_at: currentTimestamp,

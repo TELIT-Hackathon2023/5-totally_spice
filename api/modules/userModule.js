@@ -35,6 +35,17 @@ export const createUser = async (userData) => {
         return false;
     }
 };
+export const setSocialScore = async (id , score) => {
+   
+    const db = await connectToDatabase();
+    const users = db.collection('users');
+    const result = await users.updateOne({ _id: new ObjectId(id) }, { $set: { social_score: score } });
+    if (result.acknowledged) {
+        return result.insertedId;
+    } else {
+        return false;
+    }
+};
 
 export const deleteUserById = async (userId) => {
     const db = await connectToDatabase();

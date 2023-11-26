@@ -1,5 +1,5 @@
 import express from 'express';
-import {getUserById, getUserByEmail, checkUserExist, createUser, deleteUserById} from '../modules/userModule.js';
+import {getUserById, getUserByEmail, checkUserExist, createUser, deleteUserById,setSocialScore} from '../modules/userModule.js';
 
 const router = express.Router();
 
@@ -60,6 +60,16 @@ const createUserHandler = async (req, res) => {
         res.status(500).send('Error creating user: ' + error.message);
     }
 };
+const SetSocialScoreHandler = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const score = req.query.score;
+        const userId = await setSocialScore(id, score);
+        res.status(201).json({ status:"sucsess" });
+    } catch (error) {
+        res.status(500).send('Error creating user: ' + error.message);
+    }
+};
 
 const deleteUserHandler = async (req, res) => {
     try {
@@ -76,6 +86,7 @@ router.get('/:id', getUserByIdHandler);
 router.get('/email/:email', getUserByEmailHandler);
 router.post('/check-existence', checkUserExistHandler);
 router.post('/create', createUserHandler);
+router.post('/score/:id', SetSocialScoreHandler);
 router.delete('delete/:id', deleteUserHandler);
 
 
