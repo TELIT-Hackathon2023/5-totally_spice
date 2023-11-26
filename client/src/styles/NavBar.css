@@ -1,0 +1,37 @@
+/* NavBar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px 20px;
+}
+.logo {
+    display: block; /* or inline-block */
+    width: 50px; /* You can adjust the width as needed */
+    height: auto; /* This will maintain the aspect ratio of the logo */
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-link {
+    text-decoration: none;
+    color: #333;
+    margin-right: 20px;
+    font-size: 16px;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    transition: color 0.3s ease;
+}
+
+.navbar-link:hover {
+    color: #c2185b; /* Magenta color for hover state */
+}
+
+.navbar-link-sign-in {
+    border: 1px solid #333;
+    border-radius: 4px;
+}

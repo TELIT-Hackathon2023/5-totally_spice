@@ -1,0 +1,53 @@
+/* RegistrationCard.css */
+/* Add to the parent container of registration-card, or adjust the .app container if that's the parent */
+
+.registration-card {
+    max-width: 300px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    z-index: 10;
+    left: 20px;
+    top: 100px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .registration-card {
+        max-width: 80%;
+        position: static; /* Let the card flow within the document */
+        margin: 10px auto; /* Add some margin and center the card */
+    }
+}
+
+@media (max-width: 480px) {
+    .registration-card {
+        max-width: 95%;
+        margin: 10px auto;
+    }
+}
+
+.registration-card h3 {
+    margin-bottom: 10px; /* Adjust as needed */
+    color: #333;
+    font-size: 1.5em;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em; /* Adjust the size as needed */
+    color: #fff; /* Button text color */
+    background-color: #c2185b; /* Button background color, similar to the logo */
+    border: none; /* Remove the default border */
+    border-radius: 4px; /* Rounded corners for the button */
+    cursor: pointer; /* Cursor changes to a hand symbol on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    outline: none; /* Remove the outline to keep the design clean */
+}
+
+button:hover {
+    background-color: #a11548; /* Darken button color on hover for a visual feedback */
+}

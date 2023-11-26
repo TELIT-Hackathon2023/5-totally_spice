@@ -1,0 +1,81 @@
+.registration-form-container {
+  max-width: 500px; /* Maximum width of the form */
+  margin: 50px auto; /* Center the form on the page with margin */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.registration-form-container h2 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.registration-form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style the form inputs */
+.registration-form-container input[type="text"],
+.registration-form-container input[type="email"],
+.registration-form-container input[type="tel"],
+.registration-form-container input[type="date"],
+.registration-form-container input[type="password"],
+.registration-form-container select {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: calc(100% - 22px); /* Subtract padding and border */
+}
+
+/* Style the radio buttons and labels for gender selection */
+.registration-form-container input[type="radio"] {
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.registration-form-container label {
+  margin-right: 10px;
+  color: #333;
+}
+
+/* Style the submit button */
+.registration-form-container button {
+  padding: 10px 20px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.registration-form-container button:hover {
+  background-color: #1565c0;
+}
+
+/* Align gender selection labels with the radio buttons */
+.registration-form-container div {
+  margin-bottom: 15px;
+}
+
+/* Media query for smaller screens to adjust the form size */
+@media (max-width: 768px) {
+  .registration-form-container {
+    max-width: 80%; /* Form takes more width on smaller screens */
+    margin: 20px auto; /* Less margin on the top and bottom */
+    padding: 15px; /* Slightly less padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-form-container {
+    max-width: 95%; /* Form takes almost full width on very small screens */
+  }
+}

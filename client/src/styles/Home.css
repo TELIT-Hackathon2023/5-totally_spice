@@ -1,0 +1,104 @@
+/* Home.css - Styles for the Home component */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2em;
+    padding: 1em;
+}
+
+button {
+    padding: 8px 16px;
+    margin-right: 8px;
+    background-color: var(--button-bg-color);
+    border: 1px solid var(--button-border-color);
+    cursor: pointer;
+    color: var(--button-text-color);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #4f72f6;
+}
+
+.loading-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top: 4px solid var(--spinner-color);
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 600px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .app {
+        padding: 1rem;
+    }
+
+    nav {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* Show two items per row on smaller tablets */
+        gap: 1em; /* Smaller gap on smaller screens */
+    }
+    .info-message {
+        padding: 5px 10px; /* Padding for content */
+        font-size: 14px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr; /* Single column view on mobile */
+    }
+
+    button {
+        width: 100%; /* Full width button for mobile */
+        padding: 10px; /* Larger touch targets for mobile */
+        margin-right: 0; /* Remove margin */
+        margin-bottom: 1em; /* Add space between buttons */
+    }
+
+}
+
+/* ... (existing styles) */
+
+/* Styles for the informational message */
+.info-message {
+    position: fixed; /* Fixed at the top */
+    top: 20px; /* Give some space from the top */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Align center */
+    background-color: #f8f8f8; /* Light background */
+    border: 1px solid #ddd; /* Subtle border */
+    padding: 10px 20px; /* Padding for content */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Soft shadow for floating effect */
+    z-index: 1000; /* Ensure it's above other content */
+    animation: fadeInOut 3s ease-in-out; /* Fading animation */
+}
+
+/* Keyframes for the fading animation */
+@keyframes fadeInOut {
+    0%, to { opacity: 0; }
+    15%, 85% { opacity: 1; }
+}

@@ -1,0 +1,86 @@
+/* App.css - Global styles */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.logo {
+    height: auto;
+    width: 120px;
+}
+/* App.css */
+.app {
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh; /* Full viewport height */
+    color: #333; /* This is for text, adjust as needed */
+}
+
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
+
+.cart-link {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    /* other styles */
+}
+
+.cart-link:hover {
+    background-color: #0056b3; /* Darker shade on hover for interactivity */
+    text-decoration: none; /* Ensures underline does not reappear on hover */
+    color: white; /* Ensuring text color stays the same on hover */
+}
+
+.chat-link {
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    padding: 10px 20px; /* Same padding as cart button */
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Allow padding */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effects */
+    /* Add any other styles to match the cart button */
+}
+
+.chat-link:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    text-decoration: none; /* No underline on hover */
+}
+
+@media (max-width: 768px) {
+    .app {
+        padding: 10px; /* Less padding on smaller screens */
+    }
+
+    nav {
+        flex-direction: column; /* Stack nav items on top of each other */
+        padding: 0.5rem;
+    }
+
+    .logo {
+        margin-bottom: 1rem; /* Add space between logo and nav items */
+    }
+
+    .cart-link {
+        padding: 8px 16px; /* Smaller button on mobile */
+        margin-bottom: 1rem; /* Add space between cart link and nav items */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further adjustments for very small screens */
+    nav {
+        flex-direction: column;
+    }
+}
