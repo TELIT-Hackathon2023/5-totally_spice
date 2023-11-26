@@ -188,8 +188,30 @@ const CarArrivedHandler = async (req, res) => {
     }
 }
 
+const DeleteByNumberHandler = async (req, res) => {
+    
+    var number = req.params.number;
+    var car = await getCarByNumber(number);
+    if(car == null){
+        res.status(400).json({ status: 'error' , message: 'no car found' });
+        return
+    }
+    var reservation = await getParkingByCarId(car._id);
+    if(reservation == null){
+        res.status(400).json({ status: 'error' , message: 'no reservation found' });
+        return
+    }
+    var result = await deleteParkingById(reservation._id);
+    if (result != null) {
+        res.status(200).json({ status: 'success' });
+    } else {
+        res.status(400).json({ status: 'error' });
+    }
+}
+
 
 router.get('/all', getAllCurrentparkingReservations);
+router.delete('/departed/:number', DeleteByNumberHandler);
 router.get('/arrived/:number', CarArrivedHandler);
 router.get('/status', getAllCurrentparkingReservationStatus);
 router.post('/create',createReservation );

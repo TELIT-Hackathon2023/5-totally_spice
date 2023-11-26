@@ -11,11 +11,12 @@ const RegistrationHandler = async (req, res) => {
     var email = req.query.email;
     var car_number = req.query.car_number;
     var car_name = req.query.car_name;
-    
+    var corporate_card = req.query.corporate_card;
+    var phone = req.query.corporate_card;
     
     
 
-    if (name && surname && email && car_number && car_name) {
+    if (name && surname && email && car_number && car_name && phone && corporate_card) {
         // All variables exist and are not null
         const emailValid = endsWith(email, ending);
         if(await getUserByEmail(email)){
@@ -31,6 +32,8 @@ const RegistrationHandler = async (req, res) => {
                 is_admin: false,
                 social_score: 3,
                 email: email,
+                phone:phone,
+                corporate_card: corporate_card,
                 password: password,
                 created_at: currentTimestamp,
                 ban_end_time: currentTimestamp
