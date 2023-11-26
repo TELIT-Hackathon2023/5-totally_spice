@@ -62,6 +62,18 @@ export const createParking = async (parkingData) => {
     }
 };
 
+export const editParking = async (id,parkingData) => {
+
+    const db = await connectToDatabase();
+    const cars = db.collection('parking');
+    const result = await cars.updateOne({ _id: new ObjectId(id) }, { $set: { from_time: parkingData.from_time, to_time: parkingData.to_time , car_id:parkingData.car_id } });
+    if (result.acknowledged) {
+        return result.insertedId;
+    } else {
+        return false;
+    }
+}
+
 
 export const carArrived = async (id) => {
     const db = await connectToDatabase();
