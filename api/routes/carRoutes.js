@@ -91,7 +91,7 @@ const deleteCarHandler = async (req, res) => {
 
 // Define routes
 router.get('/:id', getCarByIdHandler);
-router.get('/number/:number', getCarByNumberHandler);
+router.get('/number/:numbe', getCarByNumberHandler);
 router.post('/check-existence', checkCarExistHandler);
 router.post('/create', createCarHandler);
 router.delete('/delete/:id', deleteCarHandler);
