@@ -39,9 +39,23 @@ const check = async () => {
                 var email = user.email;
                 await ExpiresSoonNotification(email);
                 await notificationArrived(reservation._id);
+                continue
               }
         }
         
+        if(Date.now() - reservation.from_time > 86400000 && reservation.car_on_place == false){
+          var user = await getUserById(reservation.user_id);
+          if(user!= null){
+            var email = user.email;
+            await PenaltyNotification(email);
+
+            if(user.social_score  != 0){
+              await setSocialScore(user._id,user.social_score-1);
+            }
+            await deleteParkingById(reservation._id);
+          }  
+          continue;
+        }
     }
 }
 
